@@ -579,14 +579,15 @@ class _FlashBarState extends State<FlashBar> with SingleTickerProviderStateMixin
         child: child,
       );
     }
-
-    if (widget.position == FlashPosition.top) {
-      final brightness = ThemeData.estimateBrightnessForColor(backgroundColor);
-      child = AnnotatedRegion<SystemUiOverlayStyle>(
-        value: brightness == Brightness.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
-        child: child,
-      );
-    }
+    // fix: remove annotated region for FlashPosition.top to fix issue
+    // Related: https://github.com/sososdk/flash/pull/75/files
+    // if (widget.position == FlashPosition.top) {
+    //   final brightness = ThemeData.estimateBrightnessForColor(backgroundColor);
+    //   child = AnnotatedRegion<SystemUiOverlayStyle>(
+    //     value: brightness == Brightness.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+    //     child: child,
+    //   );
+    // }
 
     child = FadeTransition(
       opacity: widget.controller.controller,
